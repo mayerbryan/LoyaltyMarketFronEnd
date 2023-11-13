@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Add new Product</h1>
+    <form #form="ngForm" (ngSubmit)="addProduct()">
+        <div class="mb-3">
+            <label for="product category" class="form-label">CategoryId</label>
+            <input type="text" class="form-control" id="category" name="category" [(ngModel)] = "newProduct.categoryId">        
+        </div>
+        <div class="mb-3">
+            <label for="product name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "newProduct.name">        
+        </div>
+        <div class="mb-3">
+            <label for="product price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" [(ngModel)] = "newProduct.price">        
+        </div>
+        <div class="mb-3">
+            <label for="product color" class="form-label">Color</label>
+            <input type="text" class="form-control" id="color" name="color" [(ngModel)] = "newProduct.color">        
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" name="description" [(ngModel)] = "newProduct.description">
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
