@@ -9,6 +9,7 @@ import { ProductsService } from '../../services/products.service';
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
+  
   products: Product[] = [];
 
   constructor(private productService: ProductsService, private router: Router){}

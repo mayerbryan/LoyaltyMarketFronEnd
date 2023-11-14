@@ -1,0 +1,21 @@
+<table class="table table-striped-columns" *ngIf="categories && categories.length > 0">
+    <thead>
+      <tr>
+        <th scope="col">Category</th>
+        <th scope="col">Name</th>
+        <th scope="col">Color</th>
+        <th scope="col">Price</th>
+        <th scope="col">description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories">
+        <th scope="row">{{ category.id }}</th>
+        <td>{{ category.name }}</td>
+        <td>{{ category.description }}</td>
+        <td><a [routerLink]="['/categories','edit',category.id]">Edit</a></td>
+        <td><a [routerLink]="" (click)="deleteCategory(category.id)">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="!categories"> No categories Found</p>

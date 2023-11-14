@@ -16,7 +16,6 @@ export class ProductsService {
 
   addProduct(newProduct: Product): Observable<Product>{
     newProduct.id='';
-    console.log(newProduct.id, newProduct.categoryId, newProduct.price, newProduct.color, newProduct.description );
     return this.http.post<Product>(this.baseApiUrl+"/api/Product", newProduct);
   }
 
