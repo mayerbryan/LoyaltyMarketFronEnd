@@ -1,10 +1,15 @@
 <div class="container">
     <h1>Add new Product</h1>
     <form #form="ngForm" (ngSubmit)="addProduct()">
-        <div class="mb-3">
+        <select name="Category" class="form-control" id="category" name="category" [(ngModel)] = "newProduct.categoryId">
+            <option>Select the desired category</option>
+            <option [value]="category.id" *ngFor="let category of categories">{{category.name}}</option>
+        </select>
+        
+        <!-- <div class="mb-3">
             <label for="product category" class="form-label">CategoryId</label>
             <input type="text" class="form-control" id="category" name="category" [(ngModel)] = "newProduct.categoryId">        
-        </div>
+        </div> -->
         <div class="mb-3">
             <label for="product name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "newProduct.name">        

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Category } from '../../models/category.model';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-add-product',
@@ -10,6 +12,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class AddProductComponent {
+  categories: Category[] = [];
+  constructor(private productService: ProductsService, private categoryService: CategoryService, private router: Router){}  
+
+  ngOnInit(): void {
+    this.categoryService.getAllCategories()
+    .subscribe({
+      next: (categories) => {
+        this.categories = categories;
+      },
+      error: (response) => {
+        console.log(response);
+      }
+    });
+  }
+
+
   newProduct: Product = {
     id: '',
     name: '',
@@ -19,7 +37,7 @@ export class AddProductComponent {
     categoryId: ''
   };
 
-  constructor(private productService: ProductsService, private router: Router){}  
+  
 
   addProduct() {
     this.productService.addProduct(this.newProduct)
