@@ -1,1 +1,18 @@
-<p>edit-category works!</p>
+<div class="container">
+    <h1>Update Category </h1>
+    <form #form="ngForm" (ngSubmit)="updateCategory()">
+        <div class="mb-3">
+            <label for="category id" class="form-label">CategoryId</label>
+            <input type="text" class="form-control" id="category" name="category" [(ngModel)] = "updateCategoryRequest.id">        
+        </div>
+        <div class="mb-3">
+            <label for="category name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "updateCategoryRequest.name">        
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" name="description" [(ngModel)] = "updateCategoryRequest.description">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>

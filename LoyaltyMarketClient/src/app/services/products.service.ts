@@ -7,7 +7,7 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductsService {
-  baseApiUrl: string = "https://192.168.0.100:5159"
+  baseApiUrl: string = "http://192.168.0.100:5159"
   constructor(private http: HttpClient) { }
 
   getAllProducts(): Observable<Product[]>{
