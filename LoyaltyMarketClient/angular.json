@@ -72,12 +72,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "LoyaltyMarketClient:build:production",
-              "proxyConfig": "proxy.conf.json"
+              "buildTarget": "LoyaltyMarketClient:build:production"
+              
             },
             "development": {
-              "buildTarget": "LoyaltyMarketClient:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "buildTarget": "LoyaltyMarketClient:build:development"
+              
             }
           },
           "defaultConfiguration": "development"
