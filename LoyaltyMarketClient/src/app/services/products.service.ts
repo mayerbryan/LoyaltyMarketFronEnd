@@ -7,7 +7,7 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductsService {
-  baseApiUrl: string = "https://192.168.0.100:5159"
+  baseApiUrl: string = "http://192.168.0.100:5159"
   
   constructor(private http: HttpClient) { }
 
@@ -17,7 +17,6 @@ export class ProductsService {
 
   addProduct(newProduct: Product): Observable<Product>{
     newProduct.id='';
-    console.log(newProduct.id, newProduct.categoryId, newProduct.price, newProduct.color, newProduct.description );
     return this.http.post<Product>(this.baseApiUrl+"/api/Product", newProduct);
   }
 

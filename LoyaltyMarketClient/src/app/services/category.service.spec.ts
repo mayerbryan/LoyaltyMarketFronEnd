@@ -1,92 +1,88 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CategoryService } from './category.service';
-import { Category } from '../models/category.model';
 
 describe('CategoryService', () => {
-  let categoryService: CategoryService;
-  let httpMock: HttpTestingController;
+  let service: CategoryService;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [CategoryService]
+      providers: [CategoryService],
     });
-
-    categoryService = TestBed.inject(CategoryService);
-    httpMock = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(CategoryService);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    httpMock.verify();
+    httpTestingController.verify();
   });
 
   it('should be created', () => {
-    expect(categoryService).toBeTruthy();
+    expect(service).toBeTruthy();
   });
 
-  it('should retrieve all categories', () => {
-    const mockCategories: Category[] = [
-      { id: '1', name: 'Category 1', description: 'Description 1' },
-      { id: '2', name: 'Category 2', description: 'Description 2' },
-    ];
+  it('should retrieve categories from the API via GET', () => {
+    const dummyCategories = [{ id: '1', name: 'Category 1', description: 'Description 1' }];
 
-    categoryService.getAllCategories().subscribe(categories => {
-      expect(categories).toEqual(mockCategories);
+    service.getAllCategories().subscribe((categories) => {
+      expect(categories).toEqual(dummyCategories);
     });
 
-    const req = httpMock.expectOne(`${categoryService.baseApiUrl}/api/Category`);
+    const req = httpTestingController.expectOne('http://192.168.0.100:5159/api/Category');
     expect(req.request.method).toBe('GET');
-    req.flush(mockCategories);
+    req.flush(dummyCategories);
   });
 
-  it('should add a new category', () => {
-    const newCategory: Category = { id: '3', name: 'New Category', description: 'New Description' };
+  it('should add a category via POST', () => {
+    const dummyCategory = { id: '1', name: 'New Category', description: 'New Description' };
 
-    categoryService.addCategory(newCategory).subscribe(category => {
-      expect(category).toEqual(newCategory);
+    service.addCategory(dummyCategory).subscribe((category) => {
+      expect(category).toEqual(dummyCategory);
     });
 
-    const req = httpMock.expectOne(`${categoryService.baseApiUrl}/api/Category`);
+    const req = httpTestingController.expectOne('http://192.168.0.100:5159/api/Category');
     expect(req.request.method).toBe('POST');
-    req.flush(newCategory);
+    req.flush(dummyCategory);
   });
 
-  it('should retrieve a category by ID', () => {
+  it('should retrieve a category by ID via GET', () => {
     const categoryId = '1';
-    const mockCategory: Category = { id: categoryId, name: 'Category 1', description: 'Description 1' };
+    const dummyCategory = { id: categoryId, name: 'Category 1', description: 'Description 1' };
 
-    categoryService.getCategory(categoryId).subscribe(category => {
-      expect(category).toEqual(mockCategory);
+    service.getCategory(categoryId).subscribe((category) => {
+      expect(category).toEqual(dummyCategory);
     });
 
-    const req = httpMock.expectOne(`${categoryService.baseApiUrl}/api/Category/${categoryId}`);
+    const req = httpTestingController.expectOne(`http://192.168.0.100:5159/api/Category/${categoryId}`);
     expect(req.request.method).toBe('GET');
-    req.flush(mockCategory);
+    req.flush(dummyCategory);
   });
 
-  it('should update a category', () => {
+  it('should update a category by ID via PUT', () => {
     const categoryId = '1';
-    const updatedCategory: Category = { id: categoryId, name: 'Updated Category', description: 'Updated Description' };
+    const updatedCategory = { id: categoryId, name: 'Updated Category', description: 'Updated Description' };
 
-    categoryService.updateCategory(categoryId, updatedCategory).subscribe(category => {
+    service.updateCategory(categoryId, updatedCategory).subscribe((category) => {
       expect(category).toEqual(updatedCategory);
     });
 
-    const req = httpMock.expectOne(`${categoryService.baseApiUrl}/api/Category/${categoryId}`);
+    const req = httpTestingController.expectOne(`http://192.168.0.100:5159/api/Category/${categoryId}`);
     expect(req.request.method).toBe('PUT');
     req.flush(updatedCategory);
   });
 
-  it('should delete a category', () => {
+  it('should delete a category by ID via DELETE', () => {
     const categoryId = '1';
 
-    categoryService.deleteCategory(categoryId).subscribe(category => {
-      expect(category).toBeNull(); 
+    service.deleteCategory(categoryId).subscribe((category) => {
+      // For delete, the response can be empty or a success message
+      expect(category).toBeTruthy();
     });
 
-    const req = httpMock.expectOne(`${categoryService.baseApiUrl}/api/Category/${categoryId}`);
+    const req = httpTestingController.expectOne(`http://192.168.0.100:5159/api/Category/${categoryId}`);
     expect(req.request.method).toBe('DELETE');
-    req.flush(null);
+    req.flush({});
   });
 });

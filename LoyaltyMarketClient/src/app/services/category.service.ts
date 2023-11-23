@@ -6,6 +6,7 @@ import { Category } from '../models/category.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CategoryService {
   baseApiUrl: string = "http://192.168.0.100:5159"
   constructor(private http: HttpClient) { }
@@ -16,7 +17,6 @@ export class CategoryService {
 
   addCategory(newCategory: Category): Observable<Category>{
     newCategory.id='';
-    console.log(newCategory.id, newCategory.name, newCategory.description );
     return this.http.post<Category>(this.baseApiUrl+"/api/Category", newCategory);
   }
 
